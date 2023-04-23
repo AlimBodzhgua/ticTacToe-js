@@ -1,0 +1,123 @@
+:root {
+	--clr-primary: #58B7ED;
+	--clr-secondary: #fff;
+}
+
+
+*{
+	margin: 0;
+	padding: 0;
+}
+
+
+*,
+*:before,
+*after{
+	box-sizing: border-box;
+}
+		
+.app {
+	width: 100%;
+	height: 100vh;
+	background-color: #58B7ED;
+
+	display: flex;
+	justify-content: center;
+	font-family: 'Poppins', sans-serif;
+}
+
+.game {
+	width: 450px;
+	align-items: center;
+	text-align: center;
+}
+
+.game__title {
+	color: var(--clr-secondary);
+}
+
+.turn {
+	display: flex;
+	justify-content: space-between;
+
+	margin-bottom: 20px;
+	padding: 8px 8px;
+
+	border-radius: 5px;
+
+	font-size: 46px;
+	font-weight: 500;
+	line-height: 1;
+	color: var(--clr-primary);
+	background-color: var(--clr-secondary);
+}
+
+.turn__inner {
+	display: inline;
+	vertical-align: middle;
+	padding: 10px 16px;
+
+	border-radius: 5px;
+}
+
+.turn__inner.active {
+	background-color: var(--clr-primary);
+	color: var(--clr-secondary);
+}
+
+
+.grid{
+	display: grid;
+	justify-content: center;
+	grid-template-columns: 135px 135px 135px;
+	/*grid-template-rows: 135px 135px 135px;*/
+	grid-template-rows: 125px 125px 125px;
+	column-gap: 7px;
+	row-gap: 7px;
+
+	margin-bottom: 20px;
+}
+
+.grid__item{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	background: white;
+	color: #58B7ED;
+	font-size: 54px;
+	font-weight: 500;
+
+	border-radius: 5px;
+}
+
+.grid__item:hover {
+	cursor: pointer;
+}
+
+
+.actions {
+	display: flex;
+	justify-content: center;
+	gap: 30px;
+}
+
+.btn {
+	font-size: 0;
+	flood-color: transparent;
+
+	background: none;
+	border: none;
+	cursor: pointer;
+
+	height: 50px;
+	width: 50px;
+}
+
+.btn--restart {
+	background: url("icons/refresh.svg");
+}
+
+.btn--undo {
+	background: url("icons/undo.svg");
+}
