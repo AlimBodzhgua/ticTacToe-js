@@ -1,17 +1,3 @@
-
-/*class GameWin {
-	static condition1 = ['0:0', '0:1', '0:2'];//firstLine
-	static condition2 = ['0:0', '1:0', '2:0'];//leftLine
-	static condition3 = ['2:0', '2:1', '2:2'];//lastLine
-	static condition4 = ['0:2', '1:2', '2:2'];//rightLine
-	static condition5 = ['1:0', '1:1', '1:2'];//centerRow
-	static condition6 = ['0:1', '1:1', '2:1'];//centerCol
-	static condition7 = ['0:0', '1:1', '2:2'];//diag1
-	static condition8 = ['0:2', '1:1', '2:0'];//diag2
-}
-*/
-
-
 class Game {
 	#winConditions = {
 		condition1: ['0:0', '0:1', '0:2'],//firstLine
@@ -47,7 +33,8 @@ class Game {
 
 	setValue($target, value, row, col) {
 		if ($target.innerHTML !== '') {
-			return window.alert('this cell is already filled');
+			window.alert('this cell is already filled');
+			return false;
 		}
 		$target.innerHTML = value;
 
@@ -65,6 +52,10 @@ class Game {
 	}
 
 	undo() {
+		if (!this.stack.length) {
+			console.log('fied is empty');
+			return;
+		}
 		return this.stack.pop();
 	}
 
@@ -110,50 +101,56 @@ class Game {
 
 
 window.onload = () => {
-	let game = new Game();
+	const game = new Game();
 	const field = document.querySelector('.game');
 	const undoBtn = document.querySelector('#buttonUndo');
 	const restartBtn = document.querySelector('#buttonRestart');
 
 	field.addEventListener('click', (event) => {
 		const $target = event.target;
+		let setResult;
 
 		if ($target.dataset.type === 'cell') {
 			const [row, col] = parseId($target.dataset.id)
 			if (game.getTurn === 1) {
-				game.setValue($target, 0, row, col);
-				game.changeTurn();
+				setResult = game.setValue($target, 0, row, col);
 			} else if (game.getTurn === 2) {
-				game.setValue($target, 'x', row, col)
-				game.changeTurn();
+				setResult = game.setValue($target, 'x', row, col)
 			}
 			
+			const isFinished = game.checkConditions();
 
-			game.checkConditions();
-			let isFinished = game.checkConditions();
-
-			if (isFinished) {
-				window.alert('game over');
-				game.resetMatrix();
-				const cells = document.querySelectorAll('.grid__item');
-				clearCells(cells);
-				return;
+			if (setResult !== false) {
+				if (isFinished) {
+					setTimeout(() => {
+						window.alert('game over');
+						game.resetMatrix();
+						clearCells();
+					}, 100);
+				} else {
+					game.changeTurn();
+					nextTurn();
+				}
 			}
-
-			const turns = document.querySelectorAll('.turn__inner');
-			nextTurn(turns);
 		}
 	})	
 
 
 	restartBtn.addEventListener('click', (event) => {
 		event.preventDefault();
+		game.resetMatrix();
+		clearCells()
 		console.log('restart');
 	})
 
 	undoBtn.addEventListener('click', (event) => {
 		event.preventDefault();
-		console.log(game.stack);
+		const {row, col} = game.undo();
+		const cell = document.querySelector(`[data-id='${row}:${col}']`);
+		game.matrix[row][col] = 0;
+		cell.innerHTML = '';
+		game.changeTurn();
+		nextTurn();
 	})
 }
 
@@ -162,13 +159,17 @@ const parseId = (id) => {
 	return id.split(':');
 }
 
-const clearCells = (cells) => {
+const clearCells = () => {
+	const cells = document.querySelectorAll('.grid__item');
+
 	cells.forEach(cell => {
 		cell.innerHTML = '';
 	})
 }
 
-const nextTurn = (turns) => {
+const nextTurn = () => {
+	const turns = document.querySelectorAll('.turn__inner');
+
 	turns.forEach(turn => {
 		if (turn.dataset.value === 'active') {
 			turn.dataset.value = 'inactive';
@@ -180,4 +181,3 @@ const nextTurn = (turns) => {
 	})
 }
 
-//----------------------------------------------
