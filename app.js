@@ -1,6 +1,6 @@
-import {parseId} from './src/utils.js';
-import {Game} from './src/Game.js';
-import {Actions} from './src/Actions.js';
+import {parseId} from './core/utils.js';
+import {Game} from './core/Game.js';
+import {Actions} from './core/Actions.js';
 
 window.onload = () => {
 	const game = new Game();
