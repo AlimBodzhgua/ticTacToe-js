@@ -9,6 +9,22 @@
 	<link rel="shortcut icon" type="image/jpg" href="icons/favicon.svg"/>
 </head>
 <body>
+
+<div class="modal" id="modalSelect">
+	<div class="modal__inner modal--select">
+		<div class="modal__header">
+			<h1 class="modal__title">Tic Tac Toe</h1>
+		</div>
+		<div class="modal__body">
+			<h2 class="modal__subtitle">Select which you want to be?</h2>
+			<div class="modal__actions">
+				<button class="modal__btn" data-id="playerX">Player (X)</button>
+				<button class="modal__btn" data-id="playerO">Player (O)</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div class="app">
 	<div class="game">
 		<h1 class="game__title">TicTacToe</h1>
@@ -32,8 +48,25 @@
 			<button class="btn btn--undo" id="buttonUndo">undo</button>
 		</div>
 	</div>
-
 </div>
+
+
+
+
+<div class="modal modal--winner" id="modalWinnerX">
+	<div class="modal__inner">
+		<h1 class="modal__title">Player X won the game!</h1>
+		<button class="modal__btn" id="btnReplay">Replay</button>
+	</div>
+</div> 
+
+<div class="modal modal--winner" id="modalWinnerO">
+	<div class="modal__inner">
+		<h1 class="modal__title">Player O won the game!</h1>
+		<button class="modal__btn" id="btnReplay">Replay</button>
+	</div>
+</div> 
+
 <script type="module" src="app.js"></script>
 </body>
 </html>

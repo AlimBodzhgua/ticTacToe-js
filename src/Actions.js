@@ -26,7 +26,7 @@ export class Actions {
 		condition.forEach(id => {
 			const [row, col] = id.split(':');
 			const cell = document.querySelector(`[data-id='${row}:${col}']`);
-			cell.style.border = '2px solid #8A2BE2';
+			cell.style.border = '1px solid #8A2BE2';
 		})		
 	}
 
@@ -35,5 +35,18 @@ export class Actions {
 		cells.forEach(cell => {
 			cell.style.border = 'none';
 		})		
+	}
+
+	static showModalWinner(winner) {
+		let modal;
+		if (winner === 'x') {
+			modal = document.querySelector('#modalWinnerX');
+		} else if (winner === 'o') {
+			modal = document.querySelector('#modalWinnerO');
+		}
+		setTimeout(() => {
+			modal.style.transform = 'scale(1)';
+		}, 50)
+		modal.style.display = 'flex';
 	}
 }
