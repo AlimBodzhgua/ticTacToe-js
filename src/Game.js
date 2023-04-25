@@ -25,11 +25,15 @@ export class Game extends Field {
 		return this.turn;
 	}
 
-	changeTurn() {
-		if (this.getTurn === 1) {
-			this.turn = 2;
+	changeTurn(turn) {
+		if (!turn) {
+			if (this.getTurn === 1) {
+				this.turn = 2;
+			} else {
+				this.turn = 1
+			}
 		} else {
-			this.turn = 1
+			this.turn = turn;
 		}
 	}
 
@@ -83,9 +87,9 @@ export class Game extends Field {
 					const wait = new Promise((resolve) => {
 						setTimeout(() => {
 							if (isWinnerX) {
-								window.alert('Player X won the game!')
+								Actions.showModalWinner('x');
 							} else {
-								window.alert('Player O won the game!')
+								Actions.showModalWinner('o');
 							}
 							resolve();
 						}, 400)

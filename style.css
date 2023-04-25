@@ -9,13 +9,16 @@
 	padding: 0;
 }
 
-
 *,
 *:before,
 *after{
 	box-sizing: border-box;
 }
-		
+	
+body {
+	font-family: 'Poppins', sans-serif;
+}	
+
 .app {
 	width: 100%;
 	height: 100vh;
@@ -23,7 +26,6 @@
 
 	display: flex;
 	justify-content: center;
-	font-family: 'Poppins', sans-serif;
 }
 
 .game {
@@ -95,8 +97,6 @@
 
 .grid__item:hover {
 	cursor: pointer;
-	/*border: 2px solid #FF4500;
-	color: #FF4500;*/
 }
 
 
@@ -108,7 +108,7 @@
 
 .btn {
 	font-size: 0;
-	flood-color: transparent;
+	color: transparent;
 
 	background: none;
 	border: none;
@@ -124,4 +124,89 @@
 
 .btn--undo {
 	background: url("icons/undo.svg");
+}
+
+
+.modal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+
+	height: 100vh;
+	width: 100%;
+	background-color: rgba(0, 0, 0, .8);
+	background-color: rgba(88,183,237, .8);
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	transition: transform .2s ease-out;
+	transform: scale(1);
+}
+
+.modal--winner {
+	display: none;
+	transform: scale(.1);
+}
+
+.modal__inner {
+	height: 160px;
+	width: 370px;
+	background-color: #fff;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	border-radius: 5px;
+	padding: 30px;
+}
+
+.modal--select {
+	height: 210px;
+}
+
+.modal__header {
+	border-bottom: 1px solid #EEEDEE;
+	width: 100%;
+}
+
+.modal__title {
+	margin-bottom: 20px;
+	font-size: 30px;
+}
+
+.modal__subtitle {
+	font-weight: 500;
+	margin: 30px 0;
+}
+
+.modal__btn {
+	display: inline;
+	padding: 15px 30px;
+
+	background-color: var(--clr-primary);
+	border: none;
+	border-radius: 5px;
+	color: var(--clr-secondary);
+	font-weight: 700;
+	font-size: 18px;
+	transition: 
+		color .2s linear,
+		border .2s linear
+}		
+
+.modal__btn:hover {
+	border-radius: 10px;
+	cursor: pointer;
+	color: #000;
+}
+
+.modal__actions {
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
 }
