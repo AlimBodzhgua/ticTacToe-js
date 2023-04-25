@@ -18,7 +18,7 @@ export class Game extends Field {
 
 	constructor() {
 		super();
-		this.turn = 1;
+		this.turn = 2;
 	}
 
 	get getTurn() {
@@ -37,6 +37,7 @@ export class Game extends Field {
 		const conditions = Object.keys(this.#winConditions);
 		let isWinnerX;
 		let isWinnerO;
+		let winCondition;
 
 		conditions.forEach(condition => {
 			let count1 = 0;
@@ -48,18 +49,17 @@ export class Game extends Field {
 			})
 			if (count1 === 3) {
 				isWinnerO = true;
+				winCondition = this.#winConditions[condition];
 				return;
 			}
 			if (count2 === 3) {
 				isWinnerX = true;
+				winCondition = this.#winConditions[condition];
 				return;
 			}
 		})
 
-		if (isWinnerX === true || isWinnerO === true) {
-			return true;
-		}
-		return false;
+		return [isWinnerX, isWinnerO, winCondition];
 	}
 
 
@@ -74,15 +74,27 @@ export class Game extends Field {
 				setResult = this.setValue($target, 'x', row, col)
 			}
 			
-			const isFinished = this.checkConditions();
+			const [isWinnerX, isWinnerO, condition] = this.checkConditions();
 
 			if (setResult !== false) {
-				if (isFinished) {
-					setTimeout(() => {
-						window.alert('game over');
+				if (isWinnerX || isWinnerO) {
+					Actions.tagWinnerCells(condition);
+
+					const wait = new Promise((resolve) => {
+						setTimeout(() => {
+							if (isWinnerX) {
+								window.alert('Player X won the game!')
+							} else {
+								window.alert('Player O won the game!')
+							}
+							resolve();
+						}, 400)
+					})
+					wait.then(() => {
 						this.resetMatrix();
+						Actions.clearTags();
 						Actions.clearCells();
-					}, 100);
+					})
 				} else {
 					this.changeTurn();
 					Actions.nextTurn();
