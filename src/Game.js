@@ -97,13 +97,14 @@ export class Game extends Field {
 					})
 				} else {
 					this.changeTurn();
-					Actions.nextTurn();
+					Actions.setTurn(this.turn);
 				}
 			}
 		}
 	}
 
 	restart() {
+		this.changeTurn();
 		this.resetMatrix();
 		Actions.clearCells();
 	}
@@ -113,7 +114,7 @@ export class Game extends Field {
 		if (row && col) {
 			this.matrix[row][col] = 0;
 			this.changeTurn();
-			Actions.nextTurn();
+			Actions.setTurn(this.turn);
 			return {row, col};
 		}
 	}

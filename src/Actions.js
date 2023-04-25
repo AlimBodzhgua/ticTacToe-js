@@ -8,18 +8,18 @@ export class Actions {
 		})
 	}
 
-	static nextTurn() {
-		const turns = document.querySelectorAll('.turn__inner');
+	static setTurn(turnValue) {
+		const x = document.querySelector('[data-turn="o"');
+		const o = document.querySelector('[data-turn="x"');
 
-		turns.forEach(turn => {
-			if (turn.dataset.value === 'active') {
-				turn.dataset.value = 'inactive';
-				turn.classList.remove('active');
-			}else if (turn.dataset.value === 'inactive') {
-				turn.dataset.value = 'active';
-				turn.classList.add('active');
-			}
-		})
+		if (turnValue === 1) {
+			o.classList.remove('active');
+			x.classList.add('active');
+		} else if (turnValue === 2) {
+			x.classList.remove('active');
+			o.classList.add('active');
+		} 
+
 	}
 
 	static tagWinnerCells(condition) {

@@ -6,14 +6,15 @@
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	<title>Document</title>
 	<link rel="stylesheet" href="style.css">
+	<link rel="shortcut icon" type="image/jpg" href="icons/favicon.svg"/>
 </head>
 <body>
 <div class="app">
 	<div class="game">
 		<h1 class="game__title">TicTacToe</h1>
 		<div class="turn">
-			<div class="turn__inner active" data-value="active">X's Turn</div>
-			<div class="turn__inner" data-value="inactive">O's Turn</div>
+			<div class="turn__inner active" data-turn="x">X's Turn</div>
+			<div class="turn__inner" data-turn="o">O's Turn</div>
 		</div>
 		<div class="grid">
 			<div class="grid__item" data-type="cell" data-id="0:0"></div>
