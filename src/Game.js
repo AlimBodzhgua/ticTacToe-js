@@ -4,7 +4,7 @@ import {Actions} from './Actions.js';
 
 
 export class Game extends Field {
-	static className = 'game';
+	static className = '.game';
 	#winConditions = {
 		condition1: ['0:0', '0:1', '0:2'],//firstLine
 		condition2: ['0:0', '1:0', '2:0'],//leftLine
@@ -18,7 +18,7 @@ export class Game extends Field {
 
 	constructor() {
 		super();
-		this.turn = 2;
+		this.turn = 1;
 	}
 
 	get getTurn() {
@@ -97,10 +97,12 @@ export class Game extends Field {
 	}
 
 	undo() {
-		const {row, col} = this.popStack();
-		this.matrix[row][col] = 0;
-		this.changeTurn();
-		Actions.nextTurn();
-		return {row, col};
+		const {row, col} = this.popStack() || [null, null];
+		if (row && col) {
+			this.matrix[row][col] = 0;
+			this.changeTurn();
+			Actions.nextTurn();
+			return {row, col};
+		}
 	}
 }

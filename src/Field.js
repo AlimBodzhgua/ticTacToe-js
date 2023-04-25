@@ -1,15 +1,13 @@
-import {Actions} from './Actions.js'
 
-export class Field extends Actions{
+export class Field {
 
 	constructor() {
-		super();
 		this.stack = [];
 		this.matrix = [
 			[0, 0, 0],
 			[0, 0, 0],
 			[0, 0, 0],
-		]
+		];
 	}
 
 	pushToStack(value, row, col) {
@@ -17,7 +15,9 @@ export class Field extends Actions{
 	}
 
 	popStack() {
-		if (!this.stack.length) return;
+		if (!this.stack.length) {
+			return null;
+		};
 		return this.stack.pop();
 	}
 
